@@ -9,24 +9,43 @@ public class Player implements Jsonable, Reportable {
 	private int kills;
 	private int deaths;
 	
+	public Player(String name) {
+		this.name = name;
+		this.kills = 0;
+		this.deaths = 0;
+	}
+	
 	public String getName() {
 		return name;
 	}
-	public void setName(String name) {
-		this.name = name;
-	}
+
 	public int getKills() {
 		return kills;
 	}
-	public void setKills(int kills) {
-		this.kills = kills;
-	}
+
 	public int getDeaths() {
 		return deaths;
 	}
-	public void setDeaths(int deaths) {
-		this.deaths = deaths;
+
+	public void kill() {
+		this.kills++;
 	}
+	
+	public void death() {
+		this.deaths++;
+	}
+	
+	public void suicide() {
+		if (kills > 0) {
+			this.kills--;
+		}
+	}
+	
+	public void merge(Player player) {
+		this.kills += player.kills;
+		this.deaths += player.deaths;
+	}
+	
 	public String toJson() {
 		return null;
 	}
