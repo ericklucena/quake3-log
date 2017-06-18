@@ -4,17 +4,17 @@ import me.ericklucena.quake3log.data.interfaces.Jsonable;
 import me.ericklucena.quake3log.data.interfaces.Reportable;
 
 public class Player implements Jsonable, Reportable {
-	
+
 	private String name;
 	private int kills;
 	private int deaths;
-	
+
 	public Player(String name) {
 		this.name = name;
 		this.kills = 0;
 		this.deaths = 0;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -30,25 +30,31 @@ public class Player implements Jsonable, Reportable {
 	public void kill() {
 		this.kills++;
 	}
-	
+
 	public void death() {
 		this.deaths++;
 	}
-	
+
 	public void suicide() {
 		if (kills > 0) {
 			this.kills--;
 		}
 	}
-	
+
 	public void merge(Player player) {
 		this.kills += player.kills;
 		this.deaths += player.deaths;
 	}
-	
+
 	public String toJson() {
-		return null;
+		String json = "{";
+		json += String.format("\"name\" : \"%s\",", name);
+		json += String.format("\"kills\" : %d,", kills);
+		json += String.format("\"deaths\" : %d", deaths);
+		json += "}";
+		return json;
 	}
+
 	public String toReport() {
 		return String.format("%s K/D: %d / %d \n", name, kills, deaths);
 	}
