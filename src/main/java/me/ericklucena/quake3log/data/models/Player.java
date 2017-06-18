@@ -50,6 +50,6 @@ public class Player implements Jsonable, Reportable {
 		return null;
 	}
 	public String toReport() {
-		return null;
+		return String.format("%s K/D: %d / %d \n", name, kills, deaths);
 	}
 }

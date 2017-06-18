@@ -2,13 +2,19 @@ package me.ericklucena.quake3log.data.models;
 
 import java.util.HashMap;
 
-public class Match {
+import me.ericklucena.quake3log.data.interfaces.Jsonable;
+import me.ericklucena.quake3log.data.interfaces.Reportable;
+
+public class Match implements Jsonable, Reportable{
 	
 	int id;
-	HashMap<String, Player> players;
+	private HashMap<String, Player> players;
+	private int worldKills;
 	
 	public Match(int id) {
 		this.id = id;
+		this.players = new HashMap<String, Player>();
+		worldKills = 0;
 	}
 	
 	public int getId() {
@@ -24,6 +30,16 @@ public class Match {
 		this.players = players;
 	}
 	
+	public int getTotalKills() {
+		int kills = worldKills;
+		
+		for (Player player : players.values()) {
+			kills += player.getKills();
+		}
+		
+		return kills;
+	}
+
 	public void addKill(String playerName) {
 		addIfNotInMatch(playerName);
 		players.get(playerName).kill();
@@ -36,7 +52,8 @@ public class Match {
 
 	public void addSuicide(String playerName) {
 		addIfNotInMatch(playerName);
-		players.get(playerName).death();		
+		players.get(playerName).death();
+		worldKills++;
 	}
 	
 	private void addIfNotInMatch(String playerName) {
@@ -45,4 +62,23 @@ public class Match {
 		}
 	}
 	
+	@Override
+	public String toReport() {
+		String report = String.format("Game %d\n", id);
+		report += String.format("Total kills: %d\n", getTotalKills());
+		if (players.size() > 0) {
+			for (Player player : players.values()) {
+				report += String.format("\t%s", player.toReport());
+			}			
+		} else {
+			report += "\tNo players in match\n";
+		}
+		return report;
+	}
+
+	@Override
+	public String toJson() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
