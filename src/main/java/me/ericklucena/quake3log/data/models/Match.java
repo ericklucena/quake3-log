@@ -56,7 +56,11 @@ public class Match implements Jsonable, Reportable {
 
 	public void addSuicide(String playerName) {
 		addIfNotInMatch(playerName);
-		players.get(playerName).death();
+		players.get(playerName).suicide();
+	}
+
+	public void addEnviromentKill(String playerName) {
+		addSuicide(playerName);
 		worldKills++;
 	}
 
