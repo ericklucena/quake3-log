@@ -4,4 +4,18 @@
   <artifactId>quake3log</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>Quake 3 Log Parser</name>
+  
+  <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+  
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.5</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 </project>

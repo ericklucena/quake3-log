@@ -26,7 +26,7 @@ public class Ranking implements Reportable, Jsonable {
 	}
 
 	public void addMatchStats(Match match) {
-		for (Player player : match.getPlayers().values()) {
+		for (Player player : match.getPlayers()) {
 			addIfNotInRanking(player.getName());
 			players.get(player.getName()).merge(player);
 		}

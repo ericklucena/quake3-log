@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-public class MatchTests {
+public class MatchTest {
 
 	private Match match;
 	private Player player1;

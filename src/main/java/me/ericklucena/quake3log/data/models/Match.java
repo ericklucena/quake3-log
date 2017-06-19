@@ -1,7 +1,9 @@
 package me.ericklucena.quake3log.data.models;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 import me.ericklucena.quake3log.data.interfaces.Jsonable;
 import me.ericklucena.quake3log.data.interfaces.Reportable;
@@ -26,12 +28,12 @@ public class Match implements Jsonable, Reportable {
 		this.id = id;
 	}
 
-	public HashMap<String, Player> getPlayers() {
-		return players;
+	public List<Player> getPlayers() {
+		return new ArrayList<Player>(players.values());
 	}
-
-	public void setPlayers(HashMap<String, Player> players) {
-		this.players = players;
+	
+	public Player getPlayer(String playerName) {
+		return players.get(playerName);
 	}
 
 	public int getTotalKills() {
