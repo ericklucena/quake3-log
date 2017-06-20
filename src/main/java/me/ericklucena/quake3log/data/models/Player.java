@@ -1,12 +1,22 @@
 package me.ericklucena.quake3log.data.models;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import me.ericklucena.quake3log.data.interfaces.Jsonable;
 import me.ericklucena.quake3log.data.interfaces.Reportable;
+import me.ericklucena.quake3log.util.JsonHelper;
 
+@JsonAutoDetect(fieldVisibility = Visibility.NONE, getterVisibility = Visibility.NONE, setterVisibility = Visibility.NONE)
 public class Player implements Jsonable, Reportable {
 
+	@JsonProperty
 	private String name;
+	@JsonProperty
 	private int kills;
+	@JsonProperty
 	private int deaths;
 
 	public Player(String name) {
@@ -46,15 +56,12 @@ public class Player implements Jsonable, Reportable {
 		this.deaths += player.deaths;
 	}
 
-	public String toJson() {
-		String json = "{";
-		json += String.format("\"name\" : \"%s\",", name);
-		json += String.format("\"kills\" : %d,", kills);
-		json += String.format("\"deaths\" : %d", deaths);
-		json += "}";
-		return json;
+	@Override
+	public String toJson() throws JsonProcessingException {
+		return JsonHelper.writeJSON(this);
 	}
 
+	@Override
 	public String toReport() {
 		return String.format("%s K/D: %d / %d \n", name, kills, deaths);
 	}

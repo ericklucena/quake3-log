@@ -2,16 +2,24 @@ package me.ericklucena.quake3log.data.models;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import me.ericklucena.quake3log.data.interfaces.Jsonable;
 import me.ericklucena.quake3log.data.interfaces.Reportable;
+import me.ericklucena.quake3log.util.JsonHelper;
 
+@JsonAutoDetect(fieldVisibility = Visibility.NONE, getterVisibility = Visibility.NONE, setterVisibility = Visibility.NONE)
 public class Match implements Jsonable, Reportable {
 
-	int id;
+	@JsonProperty
+	private int id;
 	private HashMap<String, Player> players;
+	@JsonProperty
 	private int worldKills;
 
 	public Match(int id) {
@@ -28,10 +36,11 @@ public class Match implements Jsonable, Reportable {
 		this.id = id;
 	}
 
+	@JsonProperty
 	public List<Player> getPlayers() {
 		return new ArrayList<Player>(players.values());
 	}
-	
+
 	public Player getPlayer(String playerName) {
 		return players.get(playerName);
 	}
@@ -45,7 +54,7 @@ public class Match implements Jsonable, Reportable {
 
 		return kills;
 	}
-	
+
 	public void addPlayer(String playerName) {
 		addIfNotInMatch(playerName);
 	}
@@ -77,6 +86,11 @@ public class Match implements Jsonable, Reportable {
 	}
 
 	@Override
+	public String toJson() throws JsonProcessingException {
+		return JsonHelper.writeJSON(this);
+	}
+
+	@Override
 	public String toReport() {
 		String report = String.format("Game %d\n", id);
 		report += String.format("Total kills: %d\n", getTotalKills());
@@ -88,24 +102,5 @@ public class Match implements Jsonable, Reportable {
 			report += "\tNo players in match\n";
 		}
 		return report;
-	}
-
-	@Override
-	public String toJson() {
-		String json = "{";
-		json += String.format("\"id\" : \"%d\",", id);
-		json += String.format("\"players\" : [");
-
-		Iterator<Player> iterator = players.values().iterator();
-
-		while (iterator.hasNext()) {
-			json += String.format("%s", iterator.next().toJson());
-			if (iterator.hasNext()) {
-				json += ",";
-			}
-		}
-		json += String.format("]");
-		json += String.format("}");
-		return json;
 	}
 }
