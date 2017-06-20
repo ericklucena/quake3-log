@@ -37,9 +37,9 @@ public class PlayerTest {
 	}
 	
 	@Test
-	public void Player_SuicideWithoutAnyKills_KillsDontChange() {
+	public void Player_SuicideWithoutAnyKills_NegativeKills() {
 		
-		int expected = 0;
+		int expected = -1;
 		
 		player.kill();
 		player.suicide();

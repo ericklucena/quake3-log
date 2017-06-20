@@ -32,7 +32,7 @@ public class Quake3LogParser {
 
 	public Quake3LogParser(Quake3LogReader reader) {
 		this.reader = reader;
-		matchCounter = 0;
+		matchCounter = 1;
 		summary = new Summary();
 		ranking = new Ranking();
 	}
@@ -57,16 +57,10 @@ public class Quake3LogParser {
 				onKill(kill.group(KILLER_GROUP), kill.group(TARGET_GROUP));
 			}
 		}
-
-		// If log ends without shutting down the last game
-		onGameShutdown();
 	}
 
 	private void onGameStart() {
-		if (currentMatch != null) {
-			onGameShutdown();
-		}
-		currentMatch = new Match(matchCounter++);
+		currentMatch = new Match(matchCounter);
 	}
 
 	private void onGameShutdown() {
@@ -74,6 +68,7 @@ public class Quake3LogParser {
 			summary.add(currentMatch);
 			ranking.addMatchStats(currentMatch);
 			currentMatch = null;
+			matchCounter++;
 		}
 	}
 	

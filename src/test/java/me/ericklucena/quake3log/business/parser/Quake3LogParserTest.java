@@ -63,20 +63,17 @@ public class Quake3LogParserTest {
 
 	@Test
 	public void QuakeLogParser_EmptyGameWithoutShutdown_OneMatchWithoutPlayers() throws IOException {
-		int expectedGames = 1;
-		int expectedPlayers = 0;
+		int expectedGames = 0;
 
 		Quake3LogParser parser = new Quake3LogParser(getGameWithoutShutdownReader());
 		parser.parse();
-		Match match = parser.getResult().getSummary().get(0);
 
 		assertEquals(expectedGames, parser.getResult().getSummary().size());
-		assertEquals(expectedPlayers, match.getPlayers().size());
 	}
 
 	@Test
-	public void QuakeLogParser_TwoGamesWithoutShutdownOnFirst_TwoMatchs() throws IOException {
-		int expectedGames = 2;
+	public void QuakeLogParser_TwoGamesWithoutShutdownOnFirst_OneMatch() throws IOException {
+		int expectedGames = 1;
 
 		Quake3LogParser parser = new Quake3LogParser(getTwoGamesWithoutShutdownOnFirst());
 		parser.parse();
@@ -138,7 +135,6 @@ public class Quake3LogParserTest {
 		Mockito.when(readerMock.nextLine()).thenReturn(
 				"0:00 ------------------------------------------------------------",
 				"  0:00 InitGame: \\sv_floodProtect", " 15:00 Exit: Timelimit hit.", " 20:34 ClientConnect: 2",
-				" 20:35 ShutdownGame:",
 				" 20:37 ------------------------------------------------------------",
 				"0:00 ------------------------------------------------------------",
 				"  0:00 InitGame: \\sv_floodProtect", " 15:00 Exit: Timelimit hit.", " 20:34 ClientConnect: 2",

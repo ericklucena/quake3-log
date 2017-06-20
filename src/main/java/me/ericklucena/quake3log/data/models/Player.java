@@ -46,9 +46,7 @@ public class Player implements Jsonable, Reportable {
 	}
 
 	public void suicide() {
-		if (kills > 0) {
-			this.kills--;
-		}
+		this.kills--;
 	}
 
 	public void merge(Player player) {
