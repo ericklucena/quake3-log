@@ -24,7 +24,10 @@ public class Quake3LogParametersBuilder {
 	}
 
 	private void validateParams() throws InvalidParameterException {
-
+		if (params == null || params.length < 1) {
+			throw new InvalidParameterException();
+		}
+		
 		for (String param : params) {
 			if (param.startsWith("-") && !param.equals(ReportType.SUMMARY.getCommand())
 					&& !param.equals(ReportType.RANKING.getCommand()) && !param.equals(OutputType.PLAIN.getCommand())
