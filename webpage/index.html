@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+	</script>
+</head>
+<body>
+
+	<h2>Quake 3 - Current player leaderboard</h2>
+
+	<table border='1' id="ranking-table">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Name</th>
+				<th>Kills</th>
+				<th>Deaths</th>
+			</tr>
+		</thead>
+		<tbody id="table-body">
+		</tbody>
+	</table>
+
+	<script>
+
+	$.getJSON("ranking.json",function(json) {
+		console.log(json);
+		var tbodyHtml = "";
+		for (x in json.players) {
+			var player = json.players[x];
+			tbodyHtml += "<tr>";
+			tbodyHtml += "<td>" + (parseInt(x)+1) + "</td>";
+			tbodyHtml += "<td>" + player.name + "</td>";
+			tbodyHtml += "<td>" + player.kills + "</td>";
+			tbodyHtml += "<td>" + player.deaths + "</td>";
+			tbodyHtml += "</tr>";
+		}
+		document.getElementById("table-body").innerHTML = tbodyHtml;
+
+		if (result.status != 200) {
+			$("#ranking-body").hide();
+		}
+	});
+
+
+	</script>
+
+</body>
+</html>
+
