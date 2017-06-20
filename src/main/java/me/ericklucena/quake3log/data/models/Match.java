@@ -45,6 +45,10 @@ public class Match implements Jsonable, Reportable {
 
 		return kills;
 	}
+	
+	public void addPlayer(String playerName) {
+		addIfNotInMatch(playerName);
+	}
 
 	public void addKill(String playerName) {
 		addIfNotInMatch(playerName);

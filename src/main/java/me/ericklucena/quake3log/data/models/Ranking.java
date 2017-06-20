@@ -11,18 +11,10 @@ import me.ericklucena.quake3log.data.interfaces.Reportable;
 
 public class Ranking implements Reportable, Jsonable {
 
-	HashMap<String, Player> players;
+	private HashMap<String, Player> players;
 
 	public Ranking() {
 		players = new HashMap<String, Player>();
-	}
-
-	public HashMap<String, Player> getPlayers() {
-		return players;
-	}
-
-	public void setPlayers(HashMap<String, Player> players) {
-		this.players = players;
 	}
 
 	public void addMatchStats(Match match) {
@@ -38,7 +30,7 @@ public class Ranking implements Reportable, Jsonable {
 		}
 	}
 
-	private List<Player> sortedPlayers() {
+	public List<Player> getPlayers() {
 		List<Player> sortedPlayers = new ArrayList<Player>(players.values());
 		sortedPlayers.sort(new Comparator<Player>() {
 			@Override
@@ -54,7 +46,7 @@ public class Ranking implements Reportable, Jsonable {
 	public String toJson() {
 		String json = "{ \"players\": [";
 
-		Iterator<Player> iterator = sortedPlayers().iterator();
+		Iterator<Player> iterator = getPlayers().iterator();
 		while (iterator.hasNext()) {
 			json += String.format("%s", iterator.next().toJson());
 			if (iterator.hasNext()) {
@@ -70,7 +62,7 @@ public class Ranking implements Reportable, Jsonable {
 	public String toReport() {
 		String report = "Ranking\n";
 
-		for (Player player : sortedPlayers()) {
+		for (Player player : getPlayers()) {
 			report += String.format("\t %s", player.toReport());
 		}
 
