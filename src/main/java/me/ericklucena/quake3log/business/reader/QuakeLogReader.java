@@ -5,18 +5,20 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import me.ericklucena.quake3log.business.parameters.Quake3LogParameters;
+
 public class QuakeLogReader {
 
-	private String filepath;
+	private Quake3LogParameters parameters;
 	private BufferedReader reader;
 	
-	public QuakeLogReader(String filepath) throws FileNotFoundException {
-		this.filepath = filepath;
+	public QuakeLogReader(Quake3LogParameters parameters) throws FileNotFoundException {
+		this.parameters = parameters;
 		load();
 	}
 	
 	private void load() throws FileNotFoundException {
-		reader = new BufferedReader(new FileReader(filepath));
+		reader = new BufferedReader(new FileReader(parameters.getFilepath()));
 	}
 	
 	public String nextLine() throws IOException {
