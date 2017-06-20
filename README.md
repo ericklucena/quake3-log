@@ -87,5 +87,6 @@ The webpage will always load a 'ranking.json' file that must be in the same fold
 * [Maven](https://maven.apache.org/) - Dependency Management
 * [Jackson JSON Processor](https://github.com/FasterXML/jackson-docs) - Library used for JSON serializing
 * [JUnit](http://junit.org/junit4/) - Java unit testing framework
-* [Mockito](http://site.mockito.org) Mocking framework for unit tests in Java
+* [Mockito](http://site.mockito.org) - Mocking framework for unit tests in Java
+* [Alpha by HTML5 UP](https://html5up.net/alpha) - Free HTML 5 template (CC-BY-3.0) 
 
