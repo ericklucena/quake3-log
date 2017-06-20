@@ -18,17 +18,15 @@ public class Quake3Log {
 
 			Quake3LogReader reader = new Quake3LogReader(parameters);
 			Quake3LogParser parser = new Quake3LogParser(reader);
-
 			parser.parse();
 			reader.unload();
 
 			QuakeLogPresenter presenter = new QuakeLogPresenter(parser.getResult(), parameters);
-
 			System.out.println(presenter.getPresentation());
 
 		} catch (Exception e) {
 			ExceptionPresenter exceptionPresenter = new ExceptionPresenter(e);
-			System.out.println(exceptionPresenter.getPresentation());
+			System.err.println(exceptionPresenter.getPresentation());
 		}
 
 	}
