@@ -1,14 +1,14 @@
 package me.ericklucena.quake3log.business.parser;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import me.ericklucena.quake3log.business.reader.QuakeLogReader;
+import me.ericklucena.quake3log.data.models.LogResult;
 import me.ericklucena.quake3log.data.models.Match;
 import me.ericklucena.quake3log.data.models.Ranking;
+import me.ericklucena.quake3log.data.models.Summary;
 
 public class QuakeLogParser {
 
@@ -25,7 +25,7 @@ public class QuakeLogParser {
 	private static final String WORLD_NAME = "<world>";
 
 	private QuakeLogReader reader;
-	private List<Match> matches;
+	private Summary summary;
 	private Match currentMatch;
 	private Ranking ranking;
 	private int matchCounter;
@@ -33,7 +33,7 @@ public class QuakeLogParser {
 	public QuakeLogParser(QuakeLogReader reader) {
 		this.reader = reader;
 		matchCounter = 0;
-		matches = new ArrayList<Match>();
+		summary = new Summary();
 		ranking = new Ranking();
 	}
 
@@ -71,7 +71,7 @@ public class QuakeLogParser {
 
 	private void onGameShutdown() {
 		if (currentMatch != null) {
-			matches.add(currentMatch);
+			summary.add(currentMatch);
 			ranking.addMatchStats(currentMatch);
 			currentMatch = null;
 		}
@@ -92,12 +92,8 @@ public class QuakeLogParser {
 		}
 	}
 
-	public List<Match> getMatches() {
-		return matches;
-	}
-
-	public Ranking getRanking() {
-		return ranking;
+	public LogResult getResult() {
+		return new LogResult(summary, ranking);
 	}
 
 }

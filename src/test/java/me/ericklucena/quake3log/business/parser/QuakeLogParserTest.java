@@ -19,9 +19,9 @@ public class QuakeLogParserTest {
 
 		QuakeLogParser parser = new QuakeLogParser(getCommonGameReader());
 		parser.parse();
-		Match match = parser.getMatches().get(0);
+		Match match = parser.getResult().getSummary().get(0);
 
-		assertEquals(expectedGames, parser.getMatches().size());
+		assertEquals(expectedGames, parser.getResult().getSummary().size());
 		assertEquals(expectedPlayers, match.getPlayers().size());
 	}
 	
@@ -32,7 +32,7 @@ public class QuakeLogParserTest {
 		QuakeLogParser parser = new QuakeLogParser(getCommonGameReader());
 		parser.parse();
 
-		assertEquals(expectedPlayers, parser.getRanking().getPlayers().size());
+		assertEquals(expectedPlayers, parser.getResult().getRanking().getPlayers().size());
 	}
 	
 	@Test
@@ -42,9 +42,9 @@ public class QuakeLogParserTest {
 
 		QuakeLogParser parser = new QuakeLogParser(getEmptyGameReader());
 		parser.parse();
-		Match match = parser.getMatches().get(0);
+		Match match = parser.getResult().getSummary().get(0);
 
-		assertEquals(expectedGames, parser.getMatches().size());
+		assertEquals(expectedGames, parser.getResult().getSummary().size());
 		assertEquals(expectedPlayers, match.getPlayers().size());
 	}
 	
@@ -55,9 +55,9 @@ public class QuakeLogParserTest {
 
 		QuakeLogParser parser = new QuakeLogParser(getGamePlayerConnectedNoAction());
 		parser.parse();
-		Match match = parser.getMatches().get(0);
+		Match match = parser.getResult().getSummary().get(0);
 
-		assertEquals(expectedGames, parser.getMatches().size());
+		assertEquals(expectedGames, parser.getResult().getSummary().size());
 		assertEquals(expectedPlayers, match.getPlayers().size());
 	}
 
@@ -68,9 +68,9 @@ public class QuakeLogParserTest {
 
 		QuakeLogParser parser = new QuakeLogParser(getGameWithoutShutdownReader());
 		parser.parse();
-		Match match = parser.getMatches().get(0);
+		Match match = parser.getResult().getSummary().get(0);
 
-		assertEquals(expectedGames, parser.getMatches().size());
+		assertEquals(expectedGames, parser.getResult().getSummary().size());
 		assertEquals(expectedPlayers, match.getPlayers().size());
 	}
 
@@ -81,7 +81,7 @@ public class QuakeLogParserTest {
 		QuakeLogParser parser = new QuakeLogParser(getTwoGamesWithoutShutdownOnFirst());
 		parser.parse();
 
-		assertEquals(expectedGames, parser.getMatches().size());
+		assertEquals(expectedGames, parser.getResult().getSummary().size());
 	}
 	
 	@Test
@@ -91,7 +91,7 @@ public class QuakeLogParserTest {
 		QuakeLogParser parser = new QuakeLogParser(getTwoGamesWithoutShutdownOnFirst());
 		parser.parse();
 
-		assertEquals(expectedPlayers, parser.getRanking().getPlayers().size());
+		assertEquals(expectedPlayers, parser.getResult().getRanking().getPlayers().size());
 	}
 
 	// Mocks
