@@ -7,17 +7,17 @@ import java.io.IOException;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import me.ericklucena.quake3log.business.reader.QuakeLogReader;
+import me.ericklucena.quake3log.business.reader.Quake3LogReader;
 import me.ericklucena.quake3log.data.models.Match;
 
-public class QuakeLogParserTest {
+public class Quake3LogParserTest {
 
 	@Test
 	public void QuakeLogParser_CommonGame_OneMatchFourPlayers() throws IOException {
 		int expectedGames = 1;
 		int expectedPlayers = 4;
 
-		QuakeLogParser parser = new QuakeLogParser(getCommonGameReader());
+		Quake3LogParser parser = new Quake3LogParser(getCommonGameReader());
 		parser.parse();
 		Match match = parser.getResult().getSummary().get(0);
 
@@ -29,7 +29,7 @@ public class QuakeLogParserTest {
 	public void QuakeLogParser_CommonGame_RankingHasFourPlayers() throws IOException {
 		int expectedPlayers = 4;
 
-		QuakeLogParser parser = new QuakeLogParser(getCommonGameReader());
+		Quake3LogParser parser = new Quake3LogParser(getCommonGameReader());
 		parser.parse();
 
 		assertEquals(expectedPlayers, parser.getResult().getRanking().getPlayers().size());
@@ -40,7 +40,7 @@ public class QuakeLogParserTest {
 		int expectedGames = 1;
 		int expectedPlayers = 0;
 
-		QuakeLogParser parser = new QuakeLogParser(getEmptyGameReader());
+		Quake3LogParser parser = new Quake3LogParser(getEmptyGameReader());
 		parser.parse();
 		Match match = parser.getResult().getSummary().get(0);
 
@@ -53,7 +53,7 @@ public class QuakeLogParserTest {
 		int expectedGames = 1;
 		int expectedPlayers = 1;
 
-		QuakeLogParser parser = new QuakeLogParser(getGamePlayerConnectedNoAction());
+		Quake3LogParser parser = new Quake3LogParser(getGamePlayerConnectedNoAction());
 		parser.parse();
 		Match match = parser.getResult().getSummary().get(0);
 
@@ -66,7 +66,7 @@ public class QuakeLogParserTest {
 		int expectedGames = 1;
 		int expectedPlayers = 0;
 
-		QuakeLogParser parser = new QuakeLogParser(getGameWithoutShutdownReader());
+		Quake3LogParser parser = new Quake3LogParser(getGameWithoutShutdownReader());
 		parser.parse();
 		Match match = parser.getResult().getSummary().get(0);
 
@@ -78,7 +78,7 @@ public class QuakeLogParserTest {
 	public void QuakeLogParser_TwoGamesWithoutShutdownOnFirst_TwoMatchs() throws IOException {
 		int expectedGames = 2;
 
-		QuakeLogParser parser = new QuakeLogParser(getTwoGamesWithoutShutdownOnFirst());
+		Quake3LogParser parser = new Quake3LogParser(getTwoGamesWithoutShutdownOnFirst());
 		parser.parse();
 
 		assertEquals(expectedGames, parser.getResult().getSummary().size());
@@ -88,15 +88,15 @@ public class QuakeLogParserTest {
 	public void QuakeLogParser_TwoGamesWithoutPlayers_EmptyRanking() throws IOException {
 		int expectedPlayers = 0;
 
-		QuakeLogParser parser = new QuakeLogParser(getTwoGamesWithoutShutdownOnFirst());
+		Quake3LogParser parser = new Quake3LogParser(getTwoGamesWithoutShutdownOnFirst());
 		parser.parse();
 
 		assertEquals(expectedPlayers, parser.getResult().getRanking().getPlayers().size());
 	}
 
 	// Mocks
-	private QuakeLogReader getEmptyGameReader() throws IOException {
-		QuakeLogReader readerMock = Mockito.mock(QuakeLogReader.class);
+	private Quake3LogReader getEmptyGameReader() throws IOException {
+		Quake3LogReader readerMock = Mockito.mock(Quake3LogReader.class);
 
 		Mockito.when(readerMock.nextLine()).thenReturn(
 				"0:00 ------------------------------------------------------------",
@@ -106,8 +106,8 @@ public class QuakeLogParserTest {
 		return readerMock;
 	}
 	
-	private QuakeLogReader getCommonGameReader() throws IOException {
-		QuakeLogReader readerMock = Mockito.mock(QuakeLogReader.class);
+	private Quake3LogReader getCommonGameReader() throws IOException {
+		Quake3LogReader readerMock = Mockito.mock(Quake3LogReader.class);
 
 		Mockito.when(readerMock.nextLine()).thenReturn(
 				"0:00 InitGame: \\sv_floodProtect",
@@ -121,8 +121,8 @@ public class QuakeLogParserTest {
 		return readerMock;
 	}
 
-	private QuakeLogReader getGameWithoutShutdownReader() throws IOException {
-		QuakeLogReader readerMock = Mockito.mock(QuakeLogReader.class);
+	private Quake3LogReader getGameWithoutShutdownReader() throws IOException {
+		Quake3LogReader readerMock = Mockito.mock(Quake3LogReader.class);
 
 		Mockito.when(readerMock.nextLine()).thenReturn(
 				"0:00 ------------------------------------------------------------",
@@ -132,8 +132,8 @@ public class QuakeLogParserTest {
 		return readerMock;
 	}
 
-	private QuakeLogReader getTwoGamesWithoutShutdownOnFirst() throws IOException {
-		QuakeLogReader readerMock = Mockito.mock(QuakeLogReader.class);
+	private Quake3LogReader getTwoGamesWithoutShutdownOnFirst() throws IOException {
+		Quake3LogReader readerMock = Mockito.mock(Quake3LogReader.class);
 
 		Mockito.when(readerMock.nextLine()).thenReturn(
 				"0:00 ------------------------------------------------------------",
@@ -147,8 +147,8 @@ public class QuakeLogParserTest {
 		return readerMock;
 	}
 	
-	private QuakeLogReader getGamePlayerConnectedNoAction() throws IOException {
-		QuakeLogReader readerMock = Mockito.mock(QuakeLogReader.class);
+	private Quake3LogReader getGamePlayerConnectedNoAction() throws IOException {
+		Quake3LogReader readerMock = Mockito.mock(Quake3LogReader.class);
 
 		Mockito.when(readerMock.nextLine()).thenReturn(
 				"  0:00 InitGame: \\sv_floodProtect", " 15:00 Exit: Timelimit hit.", " 20:34 ClientConnect: 2",

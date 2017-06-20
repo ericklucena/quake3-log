@@ -5,14 +5,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import me.ericklucena.quake3log.business.parameters.Quake3LogParameters;
 import me.ericklucena.quake3log.business.parameters.enums.OutputType;
 import me.ericklucena.quake3log.business.parameters.enums.ReportType;
-import me.ericklucena.quake3log.data.models.LogResult;
+import me.ericklucena.quake3log.data.models.Quake3LogResult;
 
 public class QuakeLogPresenter {
 
-	private LogResult result;
+	private Quake3LogResult result;
 	private Quake3LogParameters parameters;
 
-	public QuakeLogPresenter(LogResult result, Quake3LogParameters parameters) {
+	public QuakeLogPresenter(Quake3LogResult result, Quake3LogParameters parameters) {
 		super();
 		this.result = result;
 		this.parameters = parameters;

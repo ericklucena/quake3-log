@@ -25,9 +25,28 @@ public class Quake3LogParametersBuilderTest {
 		assertEquals(expectedFilepath, actualParameters.getFilepath());
 	}
 	
+	@Test
+	public void Quake3LogParametersBuilder_OnlyFilename_SuccessfulBuild() throws InvalidParameterException {
+		String expectedFilepath = "filepath";
+		String[] params = {"filepath"};
+		Quake3LogParametersBuilder builder = new Quake3LogParametersBuilder(params);
+		
+		Quake3LogParameters actualParameters = builder.build();
+		
+		assertEquals(expectedFilepath, actualParameters.getFilepath());
+	}
+	
 	@Test(expected=InvalidParameterException.class)
 	public void Quake3LogParametersBuilder_InvalidParameters_ThrowException() throws InvalidParameterException {
 		String[] params = {"-r", "-i", "filepath"};
+		Quake3LogParametersBuilder builder = new Quake3LogParametersBuilder(params);
+		
+		builder.build();
+	}
+	
+	@Test(expected=InvalidParameterException.class)
+	public void Quake3LogParametersBuilder_EmptyParameters_ThrowException() throws InvalidParameterException {
+		String[] params = {};
 		Quake3LogParametersBuilder builder = new Quake3LogParametersBuilder(params);
 		
 		builder.build();

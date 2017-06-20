@@ -7,12 +7,12 @@ import java.io.IOException;
 
 import me.ericklucena.quake3log.business.parameters.Quake3LogParameters;
 
-public class QuakeLogReader {
+public class Quake3LogReader {
 
 	private Quake3LogParameters parameters;
 	private BufferedReader reader;
 	
-	public QuakeLogReader(Quake3LogParameters parameters) throws FileNotFoundException {
+	public Quake3LogReader(Quake3LogParameters parameters) throws FileNotFoundException {
 		this.parameters = parameters;
 		load();
 	}

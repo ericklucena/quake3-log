@@ -4,13 +4,13 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import me.ericklucena.quake3log.business.reader.QuakeLogReader;
-import me.ericklucena.quake3log.data.models.LogResult;
+import me.ericklucena.quake3log.business.reader.Quake3LogReader;
+import me.ericklucena.quake3log.data.models.Quake3LogResult;
 import me.ericklucena.quake3log.data.models.Match;
 import me.ericklucena.quake3log.data.models.Ranking;
 import me.ericklucena.quake3log.data.models.Summary;
 
-public class QuakeLogParser {
+public class Quake3LogParser {
 
 	private static final Pattern INIT_GAME_PATTERN = Pattern.compile("[0-9]+:[0-9]+\\s*\\bInitGame\\b:.*");
 	private static final Pattern SHUTDOWN_GAME_PATTERN = Pattern.compile("[0-9]+:[0-9]+\\s*\\bShutdownGame\\b:.*");
@@ -24,13 +24,13 @@ public class QuakeLogParser {
 
 	private static final String WORLD_NAME = "<world>";
 
-	private QuakeLogReader reader;
+	private Quake3LogReader reader;
 	private Summary summary;
 	private Match currentMatch;
 	private Ranking ranking;
 	private int matchCounter;
 
-	public QuakeLogParser(QuakeLogReader reader) {
+	public Quake3LogParser(Quake3LogReader reader) {
 		this.reader = reader;
 		matchCounter = 0;
 		summary = new Summary();
@@ -92,8 +92,8 @@ public class QuakeLogParser {
 		}
 	}
 
-	public LogResult getResult() {
-		return new LogResult(summary, ranking);
+	public Quake3LogResult getResult() {
+		return new Quake3LogResult(summary, ranking);
 	}
 
 }

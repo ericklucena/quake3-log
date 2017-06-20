@@ -1,11 +1,11 @@
 package me.ericklucena.quake3log.data.models;
 
-public class LogResult {
+public class Quake3LogResult {
 
 	private Summary summary;
 	private Ranking ranking;
 
-	public LogResult(Summary summary, Ranking ranking) {
+	public Quake3LogResult(Summary summary, Ranking ranking) {
 		this.summary = summary;
 		this.ranking = ranking;
 	}
